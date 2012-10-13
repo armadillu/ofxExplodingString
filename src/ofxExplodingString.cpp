@@ -14,6 +14,18 @@ ofxExplodingString::ofxExplodingString( ofTrueTypeFont * font, ofColor color ){
 	firstFrame = false;
 }
 
+ofxExplodingString::~ofxExplodingString(){
+	reset();
+}
+
+void ofxExplodingString::reset(){
+
+	for(int i = xploding.size() - 1; i >= 0 ; i--){
+		delete xploding[i];
+	}
+	xploding.clear();
+}
+
 
 void ofxExplodingString::update(float dt){
 
@@ -77,11 +89,7 @@ void ofxExplodingString::explode(string text, float x, float y, float duration_,
 	acceleration = gravity;
 	friction = friction_;
 	
-	//first, delete any previousa animation that was running
-	for(int i = 0; i < xploding.size(); i++){
-		delete xploding[i];
-	}
-	xploding.clear();
+	reset();
 	
 	vector<ofTTFCharacter> paths = font->getStringAsPoints(text);
 	
@@ -101,7 +109,7 @@ void ofxExplodingString::explode(string text, float x, float y, float duration_,
 				a->speed = force * vel;
 				a->p2 = poly[k+1];
 				a->speed2 = a->speed * ofRandom(0.75f, 1.5); //+ force * ofVec2f(ofRandom(-1,1), ofRandom(-1,1));
-				a->life = ofRandom(0.5f, 1.0f);
+				a->life = ofRandom(0.9f, 1.0f);
 				xploding.push_back(a);
 			}
 		}

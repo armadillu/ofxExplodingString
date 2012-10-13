@@ -26,6 +26,7 @@ class ofxExplodingString{
 
 		//font MUST have been created with makeContours == true
 		ofxExplodingString( ofTrueTypeFont * font, ofColor color );
+		~ofxExplodingString();
 		
 		void update(float dt);
 		void draw();
@@ -36,6 +37,7 @@ class ofxExplodingString{
 					 float gravity = 250.0f,
 					 float friction = 0.98f
 					 );
+		void reset();
 
 	private:
 		
